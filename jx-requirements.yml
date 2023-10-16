@@ -1,35 +1,32 @@
-cluster:
-  clusterName: ""
-  environmentGitOwner: ""
-  environmentGitPublic: false
-  project: ""
-  provider: gke
-  zone: ""
-gitops: true
-environments:
-- key: dev
-- key: staging
-- key: production
-ingress:
-  domain: ""
-  externalDNS: false
-  tls:
-    email: ""
+apiVersion: core.jenkins-x.io/v4beta1
+kind: Requirements
+spec:
+  autoUpdate:
     enabled: false
-    production: false
-kaniko: true
-secretStorage: local
-storage:
-  logs:
-    enabled: false
-    url: ""
-  reports:
-    enabled: false
-    url: ""
-  repository:
-    enabled: false
-    url: ""
-versionStream:
-  ref: "master"
-  url: https://github.com/jenkins-x/jenkins-x-versions.git
-webhook: lighthouse
+    schedule: ""
+  cluster:
+    chartRepository: http://bucketrepo.jx.svc.cluster.local/bucketrepo/charts/
+    clusterName: kind
+    devEnvApprovers:
+    - todo
+    environmentGitOwner: todo
+    gitKind: github
+    gitName: github
+    gitServer: https://github.com
+    provider: minikube
+  environments:
+  - key: dev
+  - key: staging
+  - key: production
+  ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: -jx.
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  repository: bucketrepo
+  secretStorage: local
+  vault: {}
+  webhook: lighthouse
